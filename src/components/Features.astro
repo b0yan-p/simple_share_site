@@ -3,6 +3,9 @@ import { Image } from 'astro:assets';
 import inviteScreen from '../assets/screenshots/add_people.jpg';
 import expenseScreen from '../assets/screenshots/create_expense.jpg';
 import balanceScreen from '../assets/screenshots/group_balance.jpg';
+
+const screenshotWidths = [220, 260, 326, 440, 520, 652, 780, 978];
+const screenshotSizes = '(max-width: 479px) min(calc(65vw - 26px), 220px), (max-width: 767px) 260px, min(calc(31.62vw - 21.76px), 326px)';
 ---
 
 <section id="features" class="features" aria-labelledby="features-title">
@@ -22,7 +25,7 @@ import balanceScreen from '../assets/screenshots/group_balance.jpg';
           <p>Create a group for a trip, a home, or everyday plans. Invite people with a link and keep shared expenses together.</p>
         </div>
         <div class="feature-visual feature-visual--invite">
-          <Image src={inviteScreen} alt="ShareOrb Add people screen with options to invite group members by link or QR code" width={326} format="webp" quality={82} loading="lazy" decoding="async" sizes="(max-width: 639px) 220px, (max-width: 1023px) 260px, 326px" class="feature-screen" />
+          <Image src={inviteScreen} alt="ShareOrb Add people screen with options to invite group members by link or QR code" width={326} widths={screenshotWidths} sizes={screenshotSizes} format="webp" quality={100} loading="lazy" decoding="async" class="feature-screen" />
         </div>
       </article>
 
@@ -34,7 +37,7 @@ import balanceScreen from '../assets/screenshots/group_balance.jpg';
           <p>Record who paid, then divide the cost equally or set a custom split. Add expenses in another currency when the group spends abroad.</p>
         </div>
         <div class="feature-visual feature-visual--expense">
-          <Image src={expenseScreen} alt="ShareOrb Add Expense screen showing an amount, currency, payer, and equal split options" width={326} format="webp" quality={82} loading="lazy" decoding="async" sizes="(max-width: 639px) 220px, (max-width: 1023px) 260px, 326px" class="feature-screen" />
+          <Image src={expenseScreen} alt="ShareOrb Add Expense screen showing an amount, currency, payer, and equal split options" width={326} widths={screenshotWidths} sizes={screenshotSizes} format="webp" quality={100} loading="lazy" decoding="async" class="feature-screen" />
         </div>
       </article>
 
@@ -46,7 +49,7 @@ import balanceScreen from '../assets/screenshots/group_balance.jpg';
           <p>See each person’s balance and what is still owed. When money changes hands, record the settlement to keep the group up to date.</p>
         </div>
         <div class="feature-visual feature-visual--balance">
-          <Image src={balanceScreen} alt="ShareOrb group balance screen showing who gets money back, who owes, and the settlement between members" width={326} format="webp" quality={82} loading="lazy" decoding="async" sizes="(max-width: 639px) 220px, (max-width: 1023px) 260px, 326px" class="feature-screen" />
+          <Image src={balanceScreen} alt="ShareOrb group balance screen showing who gets money back, who owes, and the settlement between members" width={326} widths={screenshotWidths} sizes={screenshotSizes} format="webp" quality={100} loading="lazy" decoding="async" class="feature-screen" />
         </div>
       </article>
     </div>

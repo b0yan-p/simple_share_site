@@ -17,7 +17,7 @@ import illustration from '../assets/illustrations/404.png';
         aria-label="ShareOrb home"
         class="flex min-h-11 items-center gap-2 text-xl font-bold tracking-tight text-ink no-underline transition-colors hover:text-brand-primary"
       >
-        <Image src={mascot} alt="" width={56} loading="eager" class="h-11 w-auto" />
+        <Image src={mascot} alt="" width={56} densities={[1, 2, 3]} format="png" loading="eager" class="size-14 shrink-0 object-contain" />
         <span>ShareOrb</span>
       </a>
     </header>
@@ -26,8 +26,9 @@ import illustration from '../assets/illustrations/404.png';
       <Image
         src={illustration}
         alt="A lost purple planet holding a map beside 404 numbers among lavender clouds."
-        widths={[320, 480, 640, 960, 1280]}
+        widths={[320, 480, 640, 960, 1280, illustration.width]}
         sizes="(max-width: 639px) calc(100vw - 40px), (max-height: 1142px) 56vh, 640px"
+        quality={90}
         loading="eager"
         fetchpriority="high"
         class="error-illustration"

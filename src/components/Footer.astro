@@ -9,7 +9,15 @@ import logo from '../assets/brand/logo.png';
     <div class="footer-row">
       <div class="footer-brand">
         <a class="footer-logo" href="/" aria-label="ShareOrb home">
-          <Image src={logo} alt="" width={64} format="webp" loading="lazy" class="h-auto w-14" />
+          <Image
+            src={logo}
+            alt=""
+            width={56}
+            densities={[1, 2, 3]}
+            format="png"
+            loading="lazy"
+            class="size-14 shrink-0 object-contain"
+          />
           <span>ShareOrb</span>
         </a>
         <p class="footer-tagline">Split expenses. Not friendships.</p>

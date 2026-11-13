@@ -1,0 +1,34 @@
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 190 48"
+  fill="none"
+>
+  <!-- Soft lavender underline -->
+  <path
+    d="M6 35 C40 31 88 31 132 35"
+    stroke="#DCCBFA"
+    stroke-width="8"
+    stroke-linecap="round"
+  />
+
+  <!-- Three playful purple rays -->
+  <path
+    d="M150 5 L146 19"
+    stroke="#8B5CF6"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+  <path
+    d="M169 13 L158 25"
+    stroke="#8B5CF6"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+  <path
+    d="M179 34 L164 30"
+    stroke="#8B5CF6"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+</svg>

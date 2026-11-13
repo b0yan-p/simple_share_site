@@ -2,11 +2,24 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
+import Features from '../components/Features.astro';
+import UseCases from '../components/UseCases.astro';
 ---
 
 <BaseLayout title="ShareOrb — Split expenses. Not friendships." description="ShareOrb helps groups track shared expenses, split costs fairly, and see who owes whom. Beta signups are coming soon.">
   <Navbar />
   <main id="main-content">
-    <Hero />
+    <div class="hero-features">
+      <Hero />
+      <Features />
+    </div>
+    <UseCases />
   </main>
 </BaseLayout>
+
+<style>
+  /* One continuous color field beneath both sections, with no painted edge between them. */
+  .hero-features {
+    background: linear-gradient(90deg, #e1c6ef, #f1d5ee 48%, #e5cbf2 72%, #e5cff5);
+  }
+</style>

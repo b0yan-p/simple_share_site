@@ -1,0 +1,284 @@
+---
+import { Image } from 'astro:assets';
+import traveling from '../assets/illustrations/traveling.png';
+import roommates from '../assets/illustrations/roommates.png';
+import couple from '../assets/illustrations/couple.png';
+import clouds from '../assets/illustrations/claude-bg.png';
+import plane from '../assets/svg/plane.svg';
+import home from '../assets/svg/home.svg';
+import heart from '../assets/svg/heart.svg';
+import sparkle from '../assets/svg/sparkle.svg';
+import underline from '../assets/svg/underline-decoration.svg';
+
+const stories = [
+  {
+    id: 'travel', label: 'Trips with friends',
+    title: ['Make memories.', 'Not spreadsheets.'],
+    description: 'Split hotels, dinners, fuel, and all the little costs in between, so you can focus on the trip, not the math.',
+    image: traveling, icon: plane,
+    alt: 'Three friends with backpacks watching the sunset over a lake',
+  },
+  {
+    id: 'home', label: 'Roommates',
+    title: ['Share a home.', 'Skip the money drama.'],
+    description: 'Split rent, groceries, bills, and takeaway, and always know who owes what.',
+    image: roommates, icon: home,
+    alt: 'Three roommates cooking and spending time together in their kitchen',
+  },
+  {
+    id: 'couple', label: 'Couples',
+    title: ['Your life together,', 'minus the math.'],
+    description: 'Date nights, the weekly shop, travels, and shared plans, all in one place.',
+    image: couple, icon: heart,
+    alt: 'A couple looking at their phone together at a table with groceries and coffee',
+  },
+];
+---
+
+<section id="use-cases" class="use-cases" aria-labelledby="use-cases-title">
+  <Image src={clouds} alt="" width={1600} format="webp" loading="lazy" class="use-cases-clouds" aria-hidden="true" />
+  <div class="container-shell">
+    <header class="use-cases-intro">
+      <div>
+        <p class="use-cases-eyebrow">Use cases</p>
+        <h2 id="use-cases-title">For the people you share <span class="use-cases-emphasis">life with.<img src={underline.src} width="190" height="48" alt="" aria-hidden="true" /></span></h2>
+      </div>
+      <div class="use-cases-lead">
+        <img src={sparkle.src} width="32" height="32" alt="" aria-hidden="true" />
+        <p>From weekend adventures to everyday life at home, keep shared expenses simple.</p>
+      </div>
+    </header>
+
+    <div class="use-cases-stories">
+      {stories.map((story, index) => (
+        <article class:list={['use-case', { 'use-case--travel': index === 0 }]} aria-labelledby={'use-case-' + story.id}>
+          <div class="use-case-copy">
+            <p class="use-case-label">
+              <img src={story.icon.src} width={index === 0 ? 22 : 40} height={index === 0 ? 22 : 40} alt="" aria-hidden="true" />
+              {story.label}
+            </p>
+            <h3 id={'use-case-' + story.id}>{story.title.map(line => <span>{line}</span>)}</h3>
+            <p class="use-case-description">{story.description}</p>
+          </div>
+          <Image
+            src={story.image}
+            alt={story.alt}
+            width={index === 0 ? 600 : 360}
+            widths={index === 0 ? [360, 600, 900, 1200] : [240, 360, 480, 720]}
+            sizes={index === 0
+              ? '(min-width: 1280px) 588px, (min-width: 1024px) 47vw, calc(100vw - 40px)'
+              : '(min-width: 1280px) 270px, (min-width: 1024px) 22vw, (min-width: 640px) 42vw, calc(100vw - 80px)'}
+            format="webp"
+            quality={82}
+            loading="lazy"
+            decoding="async"
+            class="use-case-art"
+          />
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .use-cases {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    /* Pale lavender and warm pink sampled from the supplied section reference. */
+    background: radial-gradient(ellipse at 55% 0%, #faf7fd, #f6f1fe 62%, #f7effe);
+    color: var(--color-ink);
+    padding-block: 48px 96px;
+    scroll-margin-top: 32px;
+  }
+
+  .use-cases-clouds {
+    position: absolute;
+    z-index: 0;
+    inset: auto 0 -16vw;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+  }
+
+  .use-cases > .container-shell { position: relative; z-index: 1; }
+
+  .use-cases-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 48px;
+    margin-bottom: 56px;
+    padding-inline: 32px;
+  }
+
+  .use-cases-eyebrow {
+    margin-bottom: 12px;
+    color: var(--color-brand-primary);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .use-cases-intro h2 {
+    max-width: 19ch;
+    font-size: clamp(30px, 3.4vw, 46px);
+    font-weight: 700;
+    line-height: 1.14;
+    letter-spacing: -.025em;
+    text-wrap: balance;
+  }
+
+  .use-cases-emphasis { position: relative; display: inline-block; white-space: nowrap; }
+  .use-cases-emphasis img {
+    position: absolute;
+    /* The underline occupies 132 of the SVG's 190 units; the rays extend right. */
+    width: 145%;
+    max-width: none;
+    height: auto;
+    left: -3%;
+    bottom: -.32em;
+    pointer-events: none;
+  }
+
+  .use-cases-lead {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding-left: 24px;
+    border-left: 1px solid var(--color-brand-tint);
+    color: var(--color-ink-muted);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .use-cases-lead img { flex: none; margin-top: 3px; }
+
+  .use-cases-stories {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .use-case {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: 20px;
+    padding: 18px 18px 18px 26px;
+    min-width: 0;
+    /* border: 1px solid var(--color-border-subtle); */
+    border-radius: 28px;
+    background: var(--color-surface-selected);
+    box-shadow: 0 12px 32px rgb(83 74 183 / .06);
+  }
+
+  .use-case-copy { min-width: 0; }
+  .use-case-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    color: var(--color-brand-primary);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+  .use-case-label img { flex: none; }
+
+  .use-case h3 {
+    font-size: clamp(21px, 1.8vw, 25px);
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -.025em;
+  }
+  .use-case h3 span { display: block; }
+
+  .use-case-description {
+    margin-top: 14px;
+    color: var(--color-ink-muted);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .use-case-art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 190px;
+    object-fit: cover;
+    border-radius: 22px;
+  }
+
+  .use-case--travel {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    grid-row: span 2;
+    display: flex;
+    align-items: flex-end;
+    min-height: 520px;
+    padding: 32px;
+    border: 0;
+    border-radius: 32px;
+    background: var(--color-brand-primary-hover);
+    color: var(--color-surface);
+  }
+  .use-case--travel .use-case-art {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    border-radius: 0;
+    object-position: center top;
+  }
+  .use-case--travel::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgb(60 52 137 / .2) 46%, rgb(60 52 137 / .94) 74%, var(--color-brand-primary-hover));
+    pointer-events: none;
+  }
+  .use-case--travel .use-case-label {
+    width: fit-content;
+    padding: 6px 12px;
+    gap: 6px;
+    border-radius: 9999px;
+    background: var(--color-brand-primary);
+    color: var(--color-surface);
+  }
+  .use-case--travel h3 {
+    font-size: clamp(30px, 2.7vw, 38px);
+    line-height: 1.13;
+  }
+  .use-case--travel .use-case-description {
+    margin-top: 18px;
+    max-width: 54ch;
+    color: var(--color-surface);
+  }
+
+  @media (max-width: 1023px) {
+    .use-cases-intro { padding-inline: 0; gap: 32px; }
+    .use-cases-stories { grid-template-columns: 1fr; }
+    .use-case--travel { grid-row: auto; min-height: 540px; }
+    .use-case:not(.use-case--travel) { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .use-case:not(.use-case--travel) .use-case-art { max-height: 240px; }
+  }
+
+  @media (max-width: 639px) {
+    .use-cases { padding-block: 40px 64px; }
+    .use-cases-intro { grid-template-columns: 1fr; gap: 32px; margin-bottom: 32px; }
+    .use-cases-lead { gap: 12px; padding-left: 16px; font-size: 16px; }
+    .use-cases-lead img { width: 26px; height: 26px; }
+    .use-case { padding: 20px; border-radius: 24px; }
+    .use-case--travel { min-height: 500px; padding: 24px; }
+    .use-case--travel::after { background: linear-gradient(180deg, transparent 20%, rgb(60 52 137 / .55) 45%, var(--color-brand-primary-hover) 75%); }
+    .use-case:not(.use-case--travel) { grid-template-columns: 1fr; gap: 20px; }
+    .use-case:not(.use-case--travel) .use-case-art { height: auto; min-height: 0; max-height: none; border-radius: 16px; }
+    .use-case h3 { font-size: 24px; }
+    .use-case--travel h3 { font-size: 30px; }
+    .use-cases-clouds { bottom: -11vw; }
+  }
+</style>

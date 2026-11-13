@@ -1,3 +1,4 @@
+
 ---
 import { Image } from 'astro:assets';
 import HeroCarousel from './HeroCarousel.astro';
@@ -6,15 +7,17 @@ import landscape from '../assets/illustrations/hero_section_bg.png';
 
 <section class="hero-scene relative isolate overflow-hidden" aria-labelledby="hero-title">
   <Image src={landscape} alt="" width={1671} format="webp" quality={80} loading="eager" class="hero-landscape pointer-events-none absolute inset-0 z-0 h-full w-full object-cover" />
+
   <div class="hero-tint pointer-events-none absolute inset-0 z-10" aria-hidden="true"></div>
+
   <div class="container-shell relative z-20 grid items-center gap-10 pb-12 pt-28 sm:pt-32 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,.96fr)] lg:gap-8 lg:pb-8 lg:pt-24">
     <div class="hero-copy max-w-2xl lg:pb-20">
-      <p class="mb-5 text-xs font-bold uppercase tracking-[.08em] text-brand-lavender sm:text-[13px]">The shared expense app</p>
-      <h1 id="hero-title" class="max-w-[13ch] text-[40px] font-bold leading-[1.07] tracking-[-.035em] text-white sm:text-[52px] lg:text-[64px]">Split expenses.<br /><span class="text-brand-lavender">Not friendships.</span></h1>
-      <p class="mt-6 max-w-[56ch] text-[17px] leading-[1.6] text-white sm:text-lg lg:text-[19px]">ShareOrb helps groups track expenses, split costs fairly, and see who owes whom—all in one place.</p>
+      <p class="mb-5 text-xs font-bold uppercase tracking-[.08em] text-brand-lavender sm:text-[13px]"> The shared expense app </p>
+      <h1 id="hero-title" class="max-w-[13ch] text-[40px] font-bold leading-[1.07] tracking-[-.035em] text-white sm:text-[52px] lg:text-[64px]"> Split expenses.<br /> <span class="text-brand-lavender">Not friendships.</span> </h1>
+      <p class="mt-6 max-w-[56ch] text-[17px] leading-[1.6] text-white sm:text-lg lg:text-[19px]"> ShareOrb helps groups track expenses, split costs fairly, and see who owes whom—all in one place. </p>
       <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <a class="action-link action-link--secondary hero-secondary w-full sm:w-auto" href="#app-preview">See How It Works</a>
-        <button  class="action-link hero-primary w-full sm:w-auto" type="button" > Join the Beta </button>
+        <a class="action-link action-link--secondary hero-secondary w-full sm:w-auto" href="#app-preview"> See How It Works </a>
+        <button class="action-link hero-primary w-full sm:w-auto" type="button"> Join the Beta </button>
       </div>
     </div>
     <div id="app-preview" class="min-w-0 scroll-mt-6 lg:scroll-mt-12" aria-label="ShareOrb app preview">
@@ -24,28 +27,62 @@ import landscape from '../assets/illustrations/hero_section_bg.png';
 </section>
 
 <style>
-  .hero-scene { background: var(--color-ink); }
-  .hero-landscape { object-position: 30% center; }
-  .hero-tint { background: rgba(26, 22, 64, .24); }
+  .hero-scene {
+    --hero-fade-height: 220px;
+    /* The illustration fades onto the shared Hero/Features background. */
+  }
+
+  .hero-landscape,
+  .hero-tint {
+    /* Fade only the illustration; the carousel and copy remain fully opaque. */
+    mask-image: linear-gradient(to bottom,
+      #000 calc(100% - var(--hero-fade-height)),
+      rgb(0 0 0 / .9) calc(100% - var(--hero-fade-height) * .75),
+      rgb(0 0 0 / .5) calc(100% - var(--hero-fade-height) * .4),
+      rgb(0 0 0 / .12) calc(100% - var(--hero-fade-height) * .15),
+      transparent);
+  }
+
   .hero-copy { position: relative; }
-  .hero-copy h1, .hero-copy > p { text-shadow: 0 2px 12px rgba(26, 22, 64, .55); }
+
+  .hero-copy h1, .hero-copy > p { text-shadow: 0 2px 12px rgba(26, 22, 64, 0.55); }
 
   /* CTA buttons */
   .hero-primary { background: #534ab7; color: #ffffff; border: 1px solid #d5d1ffad; box-shadow: 0 6px 20px rgba(20, 16, 58, 0.22); opacity: 1; }
-  .hero-primary:hover:not(:disabled) { background: #3c3489; cursor: pointer; }
-  .hero-secondary { background: rgba(20, 16, 58, 0.35); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.25); }
-  .hero-secondary:hover { background: rgba(20, 16, 58, 0.5); border-color: rgba(255, 255, 255, 0.4); }
+
+  .hero-primary:hover:not(:disabled) {
+    background: #3c3489;
+    cursor: pointer;
+  }
+
+  .hero-secondary {
+    background: rgba(20, 16, 58, 0.35);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .hero-secondary:hover {
+    background: rgba(20, 16, 58, 0.5);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
   .hero-primary:focus-visible,
-  .hero-secondary:focus-visible { outline: 3px solid #ffffff; outline-offset: 3px; }
-  /* !CTA buttons */
+  .hero-secondary:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+  }
 
   @media (max-width: 639px) {
-    .hero-landscape { object-position: 20% center; }
+    .hero-landscape {
+      object-position: 20% center;
+    }
+
+    .hero-scene { --hero-fade-height: 160px; }
   }
 
   @media (min-width: 1024px) {
-  .hero-copy {
-    transform: translateY(-88px);
+    .hero-copy {
+      transform: translateY(-88px);
+    }
   }
-}
 </style>

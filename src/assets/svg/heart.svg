@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-labelledby="title">
+  <title id="title">Heart</title>
+  <rect width="48" height="48" rx="13" fill="#FFE4EE"/>
+  <path d="M24 36.5 11.8 24.6c-4.5-4.4-3.9-11.1.7-13.8 4.2-2.5 8.7-.6 11.5 3.4 2.8-4 7.3-5.9 11.5-3.4 4.6 2.7 5.2 9.4.7 13.8L24 36.5Z" stroke="#EE3B68" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

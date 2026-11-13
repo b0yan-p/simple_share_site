@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 150" preserveAspectRatio="none" fill="none" aria-hidden="true">
+  <!-- Decorative clouds: transparent above the silhouettes -->
+  <!-- Left: distant pale silhouettes -->
+  <path d="M0 107C34 79 68 84 101 112C132 91 169 92 194 120C239 108 270 115 299 137L354 150H0V107Z" fill="#F1EAFE"/>
+  <!-- Left: foreground soft lavender cloud bank -->
+  <path d="M0 53C34 23 91 24 125 64C138 80 143 89 150 96C186 74 225 84 249 113C279 92 320 99 343 128C390 120 431 129 469 150H0V53Z" fill="#E9DEFC"/>
+  <!-- Left subtle highlights -->
+  <path d="M0 75C36 46 87 45 112 77C86 62 38 67 0 93V75Z" fill="#F3ECFF" opacity=".58"/>
+
+  <!-- Right: distant pale silhouettes -->
+  <path d="M1043 150C1074 121 1111 116 1147 132C1170 97 1214 95 1250 121C1290 98 1331 105 1354 137C1414 125 1476 121 1517 142L1600 150H1043Z" fill="#F1EAFE"/>
+  <!-- Right: foreground soft lavender cloud bank -->
+  <path d="M1103 150C1143 120 1180 111 1215 120C1230 79 1273 68 1308 93C1343 66 1387 81 1409 105C1434 44 1492 23 1538 45C1575 63 1594 92 1600 117V150H1103Z" fill="#E9DEFC"/>
+  <!-- Right subtle highlights -->
+  <path d="M1440 88C1460 48 1510 39 1539 62C1510 49 1471 61 1440 101V88Z" fill="#F3ECFF" opacity=".58"/>
+</svg>

@@ -1,0 +1,682 @@
+
+---
+import { Image } from 'astro:assets';
+import background from '../assets/illustrations/join_beta_bg.png';
+---
+
+<section
+  id="join-beta"
+  class="join-beta"
+  aria-labelledby="join-beta-title"
+  tabindex="-1"
+>
+  <Image
+    src={background}
+    alt=""
+    aria-hidden="true"
+    width={2172}
+    widths={[1086, 1630, 2172]}
+    sizes="(max-width: 767px) 1086px, (max-width: 1630px) 1630px, 100vw"
+    format="webp"
+    quality={85}
+    loading="lazy"
+    decoding="async"
+    class="beta-background"
+  />
+
+  <div class="container-shell beta-container">
+    <div class="beta-copy">
+
+      <p class="beta-eyebrow">
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden="true"
+        >
+          <rect
+            x="3"
+            y="5"
+            width="18"
+            height="14"
+            rx="2"
+            stroke="currentColor"
+            stroke-width="1.8"
+          />
+          <path
+            d="m4 6 8 6 8-6"
+            stroke="currentColor"
+            stroke-width="1.8"
+          />
+        </svg>
+        JOIN THE BETA
+      </p>
+
+      <h2 id="join-beta-title">
+        Good things are<br />
+        <span>better shared.</span>
+      </h2>
+
+      <p class="beta-lead">
+        Be among the first to try ShareOrb. Leave your email and we'll let
+        you know when beta access is ready.
+      </p>
+
+      <form
+        data-beta-form
+        data-state="idle"
+        method="post"
+        onsubmit="return false"
+        aria-describedby="beta-status beta-privacy"
+      >
+        <fieldset class="beta-fields">
+          <legend class="sr-only">Join the ShareOrb beta</legend>
+
+          <label for="beta-email" class="sr-only">
+            Email address
+          </label>
+
+          <div class="beta-input-row">
+
+            <!-- Email icon -->
+            <svg
+              class="email-icon"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <rect
+                x="3"
+                y="5"
+                width="18"
+                height="14"
+                rx="2"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+              <path
+                d="m4 6 8 6 8-6"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linejoin="round"
+              />
+            </svg>
+
+            <!-- Email input -->
+            <input
+              id="beta-email"
+              name="Email"
+              type="email"
+              autocomplete="email"
+              inputmode="email"
+              required
+              placeholder="Enter your email address"
+              aria-describedby="beta-status beta-privacy"
+            />
+
+            <!-- Smooth S-curve CTA, flush with the right side of the form -->
+            <button class="beta-submit" type="submit">
+              <svg
+                class="beta-submit-shape"
+                viewBox="0 0 360 90"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient
+                    id="beta-button-gradient"
+                    x1="0%" y1="0%" x2="100%" y2="100%"
+                  >
+                    <stop offset="0%" stop-color="#8958EF" />
+                    <stop offset="55%" stop-color="#7047D6" />
+                    <stop offset="100%" stop-color="#534AB7" />
+                  </linearGradient>
+                </defs>
+                <!-- Smooth, tangent S-curve at both top and bottom edges -->
+                <path
+                  d="M 160 0 H 315 A 45 45 0 0 1 315 90 H 95 C 40 90, 105 0, 160 0 Z"
+                  fill="url(#beta-button-gradient)"
+                />
+              </svg>
+              <span data-beta-button-label>Join the Beta</span>
+            </button>
+
+
+          </div>
+
+          <!-- Honeypot -->
+          <div class="beta-honeypot" aria-hidden="true">
+            <label for="beta-name">Name</label>
+            <input
+              id="beta-name"
+              type="text"
+              name="Name"
+              value=""
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+
+        </fieldset>
+
+        <p
+          id="beta-status"
+          class="beta-status"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          tabindex="-1"
+        ></p>
+
+        <p id="beta-privacy" class="beta-privacy">
+          We'll only use your email to notify you about beta access
+          and important ShareOrb updates.
+        </p>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initializeBetaSignup } from '../scripts/beta-signup';
+  import { createBetaSignupAdapter } from '../scripts/beta-signup-api';
+
+  const submitBetaSignup = createBetaSignupAdapter(
+    import.meta.env.PUBLIC_API_BASE_URL ?? 'https://api.shareorb.app',
+  );
+
+  document
+    .querySelectorAll<HTMLFormElement>('[data-beta-form]')
+    .forEach(form => initializeBetaSignup(form, submitBetaSignup));
+</script>
+
+<style>
+  .beta-honeypot {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  /* ========================================
+     SECTION
+     ======================================== */
+
+  .join-beta {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: #f7effe;
+    scroll-margin-top: 24px;
+  }
+
+  .join-beta:focus {
+    outline: none;
+  }
+
+  .beta-background {
+    position: absolute;
+    z-index: -2;
+    inset: 50% 0 auto auto;
+    width: 110%;
+    max-width: none;
+    height: auto;
+    max-height: 100%;
+    transform: translateY(-50%);
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 96px,
+      #000 calc(100% - 80px),
+      transparent
+    );
+
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 96px,
+      #000 calc(100% - 80px),
+      transparent
+    );
+  }
+
+  .join-beta::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+
+    background: linear-gradient(
+      90deg,
+      rgb(247 239 254 / .84),
+      rgb(247 239 254 / .72) 46%,
+      transparent 72%
+    );
+  }
+
+  .beta-container {
+    padding-block: 88px 72px;
+  }
+
+  .beta-copy {
+    width: 57%;
+    max-width: 660px;
+  }
+
+  /* ========================================
+     HEADING
+     ======================================== */
+
+  .beta-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 20px;
+    border-radius: 9999px;
+
+    background: rgb(255 255 255 / .65);
+    color: var(--color-brand-primary);
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .08em;
+  }
+
+  h2 {
+    margin-top: 24px;
+    color: var(--color-ink);
+    font-size: clamp(38px, 4.5vw, 64px);
+    font-weight: 700;
+    line-height: 1.07;
+    letter-spacing: -.035em;
+  }
+
+  h2 span {
+    color: var(--color-brand-primary);
+  }
+
+  .beta-lead {
+    max-width: 51ch;
+    margin-top: 24px;
+    color: var(--color-brand-primary-hover);
+    font-size: 21px;
+    line-height: 1.5;
+  }
+
+  /* ========================================
+     FORM
+     ======================================== */
+
+  form {
+    margin-top: 28px;
+  }
+
+  .beta-fields {
+    min-width: 0;
+  }
+
+  .beta-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+
+    height: 76px;
+    min-height: 76px;
+    padding: 5px;
+
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    background: #ffffff;
+
+    box-shadow:
+      0 4px 16px rgba(26, 22, 64, 0.07);
+
+    transition:
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  /* ========================================
+     FOCUSED FORM
+     ======================================== */
+
+  .beta-input-row:focus-within {
+    border-color: rgba(139, 92, 246, 0.75);
+
+    box-shadow:
+      0 0 0 4px rgba(167, 124, 246, 0.10),
+      0 0 22px rgba(139, 92, 246, 0.24),
+      0 8px 28px rgba(83, 74, 183, 0.12);
+  }
+
+  /* ========================================
+     EMAIL ICON
+     ======================================== */
+
+  .email-icon {
+    flex: none;
+
+    margin-left: 16px;
+    margin-right: 12px;
+
+    color: var(--color-brand-primary);
+    filter: none;
+
+    transition:
+      color 200ms ease,
+      filter 200ms ease;
+  }
+
+  .beta-input-row:focus-within .email-icon {
+    color: #7546df;
+
+    filter:
+      drop-shadow(0 0 5px rgba(139, 92, 246, 0.55));
+  }
+
+  /* ========================================
+     EMAIL INPUT
+     ======================================== */
+
+  input[type='email'] {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    min-height: 52px;
+
+    padding: 8px 4px;
+
+    border: 0;
+    outline: none;
+    appearance: none;
+
+    background: transparent;
+    border-radius: 0;
+
+    color: var(--color-ink);
+    font-size: 16px;
+  }
+
+  input::placeholder {
+    color: var(--color-ink-muted);
+    opacity: 1;
+  }
+
+  /* ========================================
+     CUSTOM SHAPED CTA
+     ======================================== */
+
+  .beta-submit {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex: 0 0 clamp(228px, 40%, 280px);
+    min-width: 0;
+    min-height: 0;
+    margin: -6px -6px -6px -16px;
+    padding: 0 14px 0 74px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: filter 200ms ease;
+  }
+
+  .beta-submit-shape {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    overflow: visible;
+    pointer-events: none;
+
+    filter:
+      drop-shadow(
+        -7px 3px 10px rgba(119, 72, 216, 0.25)
+      );
+
+    transition: filter 200ms ease;
+  }
+
+  .beta-submit:hover {
+    filter: brightness(1.08);
+  }
+
+  .beta-submit:active {
+    filter: brightness(0.96);
+    transform: none;
+  }
+
+  /* The parent :focus-within ring provides a visible keyboard focus indication. */
+  .beta-submit:focus-visible {
+    outline: none;
+  }
+
+  [aria-busy="true"] .beta-submit {
+    cursor: progress;
+  }
+
+  /* ========================================
+     FORM FEEDBACK
+     ======================================== */
+
+  .beta-privacy,
+  .beta-status {
+    margin-top: 16px;
+    color: var(--color-brand-primary-hover);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .beta-status {
+    margin-top: 12px;
+    font-weight: 500;
+  }
+
+  .beta-status:empty {
+    display: none;
+  }
+
+  [data-state='invalid'] .beta-status,
+  [data-state='error'] .beta-status {
+    color: var(--color-balance-negative);
+  }
+
+  [data-state='success'] .beta-status,
+  [data-state='already-registered'] .beta-status {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 16px 20px;
+    border: 1px solid var(--color-balance-positive);
+    border-radius: 16px;
+    background: var(--color-balance-positive-bg);
+    color: var(--color-balance-positive);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  [data-state='success'] .beta-status::before,
+  [data-state='already-registered'] .beta-status::before {
+    content: '✓';
+    flex: none;
+    font-size: 22px;
+    line-height: 24px;
+  }
+
+  .beta-status:focus-visible {
+    outline: 2px solid var(--color-balance-positive);
+    outline-offset: 3px;
+  }
+
+  /* ========================================
+     TABLET
+     ======================================== */
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .beta-copy {
+      width: 60%;
+    }
+
+    .beta-container {
+      padding-block: 80px;
+    }
+
+    .email-icon {
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+
+    input[type='email'] {
+      padding-left: 8px;
+    }
+
+    .beta-submit {
+      flex-basis: 206px;
+      padding: 0 10px 0 56px;
+    }
+  }
+
+  /* ========================================
+     MOBILE
+     ======================================== */
+
+  @media (max-width: 767px) {
+    .beta-copy {
+      width: 100%;
+      max-width: 560px;
+    }
+
+    .beta-container {
+      padding-block: 64px 340px;
+    }
+
+    .beta-background {
+      inset: auto 0 0;
+      width: 100%;
+      height: 360px;
+
+      transform: none;
+      object-position: 86% center;
+
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent,
+        #000 64px,
+        #000 80%,
+        transparent
+      );
+
+      mask-image: linear-gradient(
+        to bottom,
+        transparent,
+        #000 64px,
+        #000 80%,
+        transparent
+      );
+    }
+
+    .join-beta::after {
+      display: none;
+    }
+
+    h2 {
+      font-size: clamp(34px, 6.4vw, 48px);
+    }
+
+    .beta-lead {
+      font-size: 17px;
+    }
+  }
+
+  /* ========================================
+     SMALL MOBILE
+     ======================================== */
+
+  @media (max-width: 479px) {
+    .beta-input-row {
+      display: grid;
+      height: auto;
+      min-height: 0;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 8px;
+
+      padding: 9px;
+      border-radius: 28px;
+    }
+
+    .email-icon {
+      margin-left: 4px;
+      margin-right: 0;
+    }
+
+    input[type='email'] {
+      padding-inline: 8px;
+    }
+
+    .beta-submit {
+      grid-column: 1 / -1;
+      flex-basis: auto;
+      width: 100%;
+      min-height: 54px;
+
+      margin: 0;
+      padding: 0 24px;
+
+      border-radius: 9999px;
+
+      background: linear-gradient(
+        125deg,
+        #8958ef,
+        #7047d6 55%,
+        #534ab7
+      );
+
+      box-shadow:
+        0 4px 14px rgba(83, 74, 183, 0.20);
+    }
+
+    .beta-submit-shape {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .beta-input-row,
+    .email-icon,
+    .beta-submit,
+    .beta-submit-shape {
+      transition: none;
+    }
+  }
+</style>

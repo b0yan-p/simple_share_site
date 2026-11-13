@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo.png';
+
+---
+
+<footer class="site-footer">
+  <div class="container-shell">
+    <div class="footer-row">
+      <div class="footer-brand">
+        <a class="footer-logo" href="/" aria-label="ShareOrb home">
+          <Image src={logo} alt="" width={64} format="webp" loading="lazy" class="h-auto w-14" />
+          <span>ShareOrb</span>
+        </a>
+        <p class="footer-tagline">Split expenses. Not friendships.</p>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:team@shareorb.app">team@shareorb.app</a>
+        <!-- TODO: publish the policy before adding its link. src/pages/privacy.astro is empty. -->
+        <span class="footer-policy">Privacy Policy</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { padding-block: 28px; border-top: 1px solid var(--color-border-subtle); background: #f7effe; color: var(--color-brand-primary-hover); }
+  .footer-row, .footer-brand, .footer-contact { display: flex; align-items: center; gap: 32px; }
+  .footer-row { justify-content: space-between; }
+  .footer-logo { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--color-ink); font-size: 30px; font-weight: 700; letter-spacing: -.035em; text-decoration: none; }
+  .footer-tagline, .footer-policy { border-left: 1px solid var(--color-brand-lavender-border); padding-left: 32px; }
+  .footer-tagline { font-size: 16px; line-height: 1.5; }
+  .footer-contact { font-size: 16px; font-weight: 500; }
+  .footer-contact a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 4px; }
+  .footer-contact a:hover { color: var(--color-brand-primary); text-decoration: underline; }
+  .footer-policy { display: flex; flex-direction: column; gap: 4px; }
+  @media (max-width: 1023px) {
+    .footer-brand { align-items: flex-start; flex-direction: column; gap: 12px; }
+    .footer-tagline { padding-left: 0; border: 0; }
+  }
+  @media (max-width: 639px) {
+    .site-footer { padding-block: 32px 24px; }
+    .footer-row { align-items: flex-start; flex-direction: column; gap: 24px; }
+    .footer-contact { align-items: flex-start; flex-direction: column; gap: 12px; }
+    .footer-policy { padding-left: 0; border: 0; }
+  }
+</style>

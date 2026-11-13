@@ -1,0 +1,139 @@
+---
+import { Image } from 'astro:assets';
+import home from '../assets/screenshots/home.jpg';
+import groupOverview from '../assets/screenshots/group_overview.jpg';
+import expenses from '../assets/screenshots/group_expenses.jpg';
+
+const screenshots = [
+  { src: home, name: 'Home', alt: 'ShareOrb home screen with recent groups and an overall balance' },
+  { src: groupOverview, name: 'Group Balance', alt: 'ShareOrb group balance screen showing who owes whom' },
+  { src: expenses, name: 'Expenses', alt: 'ShareOrb expenses screen showing individual transactions' }
+];
+---
+
+<div data-hero-carousel class="phone-showcase mx-auto w-full max-w-560" aria-label="ShareOrb app screenshots">
+  <div class="phone-stage relative mx-auto w-full">
+    {screenshots.map((screenshot, index) => (
+      <div class="phone-frame absolute left-1/2 top-1/2 overflow-hidden rounded-[22px] border border-white/30 bg-surface" data-carousel-slide data-position={index === 0 ? 'front' : index === 1 ? 'left' : 'right'}>
+        <Image
+          src={screenshot.src}
+          alt={screenshot.alt}
+          width={420}
+          format="webp"
+          quality={100}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          fetchpriority={index === 0 ? 'high' : 'low'}
+          decoding="async"
+          class="h-full w-full object-contain"
+        />
+      </div>
+    ))}
+  </div>
+  <div class="mt-2 flex items-center justify-center gap-1" role="group" aria-label="Choose the front screenshot">
+    {screenshots.map((screenshot, index) => (
+      <button
+        type="button"
+        class="phone-indicator flex h-11 w-11 items-center justify-center rounded-full"
+        data-carousel-indicator
+        data-active={index === 0 ? 'true' : 'false'}
+        aria-label={`Show ${screenshot.name} in front`}
+        aria-pressed={index === 0 ? 'true' : 'false'}
+      ><span class="indicator-dot block h-2 w-2 rounded-full" aria-hidden="true"></span></button>
+    ))}
+  </div>
+</div>
+
+<style>
+  .phone-stage { aspect-ratio: 560 / 670; }
+  .phone-frame {
+    width: 54%;
+    aspect-ratio: 1440 / 3088;
+    box-shadow: 0 16px 42px rgba(13, 9, 53, .38), 0 4px 12px rgba(13, 9, 53, .22);
+    transition: transform 450ms ease-out, opacity 450ms ease-out;
+    will-change: transform;
+  }
+  .phone-frame[data-position='front'] { z-index: 3; transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  .phone-frame[data-position='left'] { z-index: 1; transform: translate(-98%, -43%) scale(.82); opacity: .92; }
+  .phone-frame[data-position='right'] { z-index: 2; transform: translate(-2%, -43%) scale(.82); opacity: .92; }
+  .indicator-dot { background: var(--color-brand-tint); transition: background-color 150ms ease-out, transform 150ms ease-out; }
+  .phone-indicator[data-active='true'] .indicator-dot { background: var(--color-surface); transform: scale(1.3); }
+  .phone-indicator:hover .indicator-dot { background: var(--color-surface); }
+  .phone-indicator:focus-visible { outline-color: var(--color-surface); }
+  @media (max-width: 639px) {
+    .phone-stage { aspect-ratio: 350 / 570; }
+    .phone-frame { width: 74%; }
+    .phone-frame[data-position='left'], .phone-frame[data-position='right'] { opacity: 0; visibility: hidden; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .phone-frame, .indicator-dot { transition: none; }
+  }
+</style>
+
+<script>
+  const carousel = document.querySelector<HTMLElement>('[data-hero-carousel]');
+
+  if (carousel) {
+    const slides = [...carousel.querySelectorAll<HTMLElement>('[data-carousel-slide]')];
+    const indicators = [...carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-indicator]')];
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const listeners = new AbortController();
+    let activeIndex = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let hovered = false;
+    let focused = false;
+
+    const stopTimer = () => {
+      if (timer !== undefined) window.clearTimeout(timer);
+      timer = undefined;
+    };
+
+    const paused = () => hovered || focused || document.hidden || motionPreference.matches;
+
+    const schedule = () => {
+      stopTimer();
+      if (paused()) return;
+      timer = window.setTimeout(() => {
+        show((activeIndex + 1) % slides.length);
+        schedule();
+      }, 6500);
+    };
+
+    const show = (index: number) => {
+      activeIndex = index;
+      slides.forEach((slide, slideIndex) => {
+        const offset = (slideIndex - index + slides.length) % slides.length;
+        slide.dataset.position = offset === 0 ? 'front' : offset === 1 ? 'left' : 'right';
+      });
+      indicators.forEach((indicator, indicatorIndex) => {
+        const active = indicatorIndex === index;
+        indicator.dataset.active = String(active);
+        indicator.setAttribute('aria-pressed', String(active));
+      });
+    };
+
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        show(index);
+        schedule();
+      }, { signal: listeners.signal });
+    });
+
+    carousel.addEventListener('mouseenter', () => { hovered = true; stopTimer(); }, { signal: listeners.signal });
+    carousel.addEventListener('mouseleave', () => { hovered = false; schedule(); }, { signal: listeners.signal });
+    carousel.addEventListener('focusin', () => { focused = true; stopTimer(); }, { signal: listeners.signal });
+    carousel.addEventListener('focusout', (event) => {
+      focused = carousel.contains(event.relatedTarget as Node);
+      if (!focused) schedule();
+    }, { signal: listeners.signal });
+    document.addEventListener('visibilitychange', schedule, { signal: listeners.signal });
+    motionPreference.addEventListener('change', schedule, { signal: listeners.signal });
+    window.addEventListener('pagehide', stopTimer, { signal: listeners.signal });
+    window.addEventListener('pageshow', schedule, { signal: listeners.signal });
+    document.addEventListener('astro:before-swap', () => {
+      stopTimer();
+      listeners.abort();
+    }, { once: true, signal: listeners.signal });
+
+    schedule();
+  }
+</script>

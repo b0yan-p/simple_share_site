@@ -10,9 +10,10 @@ import mascot from '../assets/brand/logo.png';
 interface Props {
   title: string;
   description: string;
+  noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 const favicon = await getImage({ src: mascot, width: 42, height: 42, format: 'png' });
 ---
 
@@ -23,6 +24,7 @@ const favicon = await getImage({ src: mascot, width: 42, height: 42, format: 'pn
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#F7F6FB" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" type="image/png" href={favicon.src} />
     <title>{title}</title>
   </head>

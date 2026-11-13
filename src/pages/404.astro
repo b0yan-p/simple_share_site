@@ -1,0 +1,73 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import mascot from '../assets/brand/logo.png';
+import illustration from '../assets/illustrations/404.png';
+---
+
+<BaseLayout
+  title="404 - Page Not Found | ShareOrb"
+  description="Looks like this page drifted out of orbit. Let's get you back."
+  noindex
+>
+  <div class="error-page">
+    <header class="container-shell flex min-h-19 items-center justify-center">
+      <a
+        href="/"
+        aria-label="ShareOrb home"
+        class="flex min-h-11 items-center gap-2 text-xl font-bold tracking-tight text-ink no-underline transition-colors hover:text-brand-primary"
+      >
+        <Image src={mascot} alt="" width={56} loading="eager" class="h-11 w-auto" />
+        <span>ShareOrb</span>
+      </a>
+    </header>
+
+    <main id="main-content" class="container-shell error-content">
+      <Image
+        src={illustration}
+        alt="A lost purple planet holding a map beside 404 numbers among lavender clouds."
+        widths={[320, 480, 640, 960, 1280]}
+        sizes="(max-width: 639px) calc(100vw - 40px), (max-height: 1142px) 56vh, 640px"
+        loading="eager"
+        fetchpriority="high"
+        class="error-illustration"
+      />
+      <h1 class="mt-6 text-[40px] leading-[1.07] font-bold tracking-[-0.035em] sm:text-[52px]">
+        Lost in space?
+      </h1>
+      <p class="mt-3 max-w-[56ch] text-[17px] leading-relaxed text-ink-muted sm:text-lg">
+        Looks like this page drifted out of orbit. Let's get you back.
+      </p>
+      <a
+        href="/"
+        class="action-link mt-6 bg-brand-primary text-surface no-underline hover:bg-brand-primary-hover"
+      >
+        Back to home
+      </a>
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .error-page {
+    display: flex;
+    min-height: 100svh;
+    flex-direction: column;
+  }
+
+  .error-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-block: 16px 32px;
+    text-align: center;
+  }
+
+  .error-illustration {
+    width: min(100%, 40rem, 56svh);
+    height: auto;
+    border-radius: var(--radius-showcase);
+  }
+</style>

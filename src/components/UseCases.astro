@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import traveling from '../assets/illustrations/traveling.png';
 import roommates from '../assets/illustrations/roommates.png';
 import couple from '../assets/illustrations/couple.png';
-import clouds from '../assets/illustrations/claude-bg.png';
 import plane from '../assets/svg/plane.svg';
 import home from '../assets/svg/home.svg';
 import heart from '../assets/svg/heart.svg';
@@ -36,7 +35,6 @@ const stories = [
 ---
 
 <section id="use-cases" class="use-cases" aria-labelledby="use-cases-title">
-  <Image src={clouds} alt="" width={1600} widths={[640, 1086, 1600, clouds.width]} sizes="100vw" format="webp" quality={90} loading="lazy" class="use-cases-clouds" aria-hidden="true" />
   <div class="container-shell">
     <header class="use-cases-intro">
       <div>
@@ -85,33 +83,10 @@ const stories = [
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    /* Pale lavender and warm pink sampled from the supplied section reference. */
-    background: radial-gradient(ellipse at 55% 0%, #faf7fd, #f6f1fe 62%, #f7effe);
     color: var(--color-ink);
     padding-block: 48px 96px;
     scroll-margin-top: 32px;
   }
-
-  .use-cases-clouds {
-    position: absolute;
-    z-index: 0;
-    inset: auto 0 -16vw;
-    width: 100%;
-    height: auto;
-    pointer-events: none;
-    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
-  }
-
-  .use-cases::after {
-    content: '';
-    position: absolute;
-    inset: auto 0 0;
-    height: 64px;
-    pointer-events: none;
-    background: linear-gradient(transparent, #f7effe);
-  }
-
-  .use-cases > .container-shell { position: relative; z-index: 1; }
 
   .use-cases-intro {
     display: grid;
@@ -289,6 +264,5 @@ const stories = [
     .use-case:not(.use-case--travel) .use-case-art { height: auto; min-height: 0; max-height: none; border-radius: 16px; }
     .use-case h3 { font-size: 24px; }
     .use-case--travel h3 { font-size: 30px; }
-    .use-cases-clouds { bottom: -11vw; }
   }
 </style>

@@ -1,7 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+import clouds from '../assets/illustrations/claude-bg.png';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
+import HowItWorks from '../components/HowItWorks.astro';
 import Features from '../components/Features.astro';
 import UseCases from '../components/UseCases.astro';
 import JoinBeta from '../components/JoinBeta.astro';
@@ -11,11 +14,15 @@ import Footer from '../components/Footer.astro';
 <BaseLayout title="ShareOrb — Split expenses. Not friendships." description="ShareOrb helps groups track shared expenses, split costs fairly, and see who owes whom. Beta signups are coming soon.">
   <Navbar />
   <main id="main-content">
-    <div class="hero-features">
+    <div class="hero-how-it-works">
       <Hero />
-      <Features />
+      <HowItWorks />
     </div>
-    <UseCases />
+    <div class="product-sections">
+      <Features />
+      <Image class="shared-clouds" src={clouds} alt="" widths={[640, 1086, 1600, clouds.width]} sizes="100vw" format="webp" loading="lazy" />
+      <UseCases />
+    </div>
     <JoinBeta />
   </main>
   <Footer />
@@ -23,7 +30,30 @@ import Footer from '../components/Footer.astro';
 
 <style>
   /* One continuous color field beneath both sections, with no painted edge between them. */
-  .hero-features {
+  .hero-how-it-works {
     background: linear-gradient(90deg, #e1c6ef, #f1d5ee 48%, #e5cbf2 72%, #e5cff5);
+  }
+
+  .product-sections {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: clip;
+    background: linear-gradient(var(--color-canvas), var(--color-brand-lavender) 42%, #f7effe);
+  }
+
+  /* Anchor the cloud bank to the start of Use Cases as the card grids reflow. */
+  .shared-clouds {
+    position: absolute;
+    grid-row: 2 / 3;
+    inset: 0 0 auto;
+    z-index: -1;
+    width: 100%;
+    height: auto;
+    transform: translateY(-50%);
+    opacity: .75;
+    mask-image: linear-gradient(transparent, black 27%, black 65%, transparent);
+    pointer-events: none;
   }
 </style>

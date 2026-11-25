@@ -1,0 +1,210 @@
+---
+import { Image } from 'astro:assets';
+import inviteScreen from '../assets/screenshots/add_people.jpg';
+import expenseScreen from '../assets/screenshots/create_expense.jpg';
+import balanceScreen from '../assets/screenshots/group_balance.jpg';
+
+const screenshotWidths = [220, 260, 326, 440, 520, 652, 780, 978];
+const screenshotSizes = '(max-width: 479px) min(calc(65vw - 26px), 220px), (max-width: 767px) 260px, min(calc(31.62vw - 21.76px), 326px)';
+---
+
+<section id="how-it-works" class="features" aria-labelledby="how-it-works-title">
+  <div class="container-shell">
+    <header class="features-intro">
+      <p class="features-eyebrow">How it works</p>
+      <h2 id="how-it-works-title">From the first invite to the final balance.</h2>
+      <p>Keep the details together, so everyone in the group can see where things stand.</p>
+    </header>
+
+    <div class="feature-story">
+      <article class="feature-chapter" aria-labelledby="feature-groups-title">
+        <div class="feature-copy">
+          <span class="feature-number" aria-hidden="true">01</span>
+          <p class="feature-kicker">Get together</p>
+          <h3 id="feature-groups-title">One place for your group.</h3>
+          <p>Create a group for a trip, a home, or everyday plans. Invite people with a link and keep shared expenses together.</p>
+        </div>
+        <div class="feature-visual feature-visual--invite">
+          <Image src={inviteScreen} alt="ShareOrb Add people screen with options to invite group members by link or QR code" width={326} widths={screenshotWidths} sizes={screenshotSizes} format="webp" quality={100} loading="lazy" decoding="async" class="feature-screen" />
+        </div>
+      </article>
+
+      <article class="feature-chapter feature-chapter--reverse" aria-labelledby="feature-expenses-title">
+        <div class="feature-copy">
+          <span class="feature-number" aria-hidden="true">02</span>
+          <p class="feature-kicker">Keep track</p>
+          <h3 id="feature-expenses-title">Add the expense. Choose the split.</h3>
+          <p>Record who paid, then divide the cost equally or set a custom split. Add expenses in another currency when the group spends abroad.</p>
+        </div>
+        <div class="feature-visual feature-visual--expense">
+          <Image src={expenseScreen} alt="ShareOrb Add Expense screen showing an amount, currency, payer, and equal split options" width={326} widths={screenshotWidths} sizes={screenshotSizes} format="webp" quality={100} loading="lazy" decoding="async" class="feature-screen" />
+        </div>
+      </article>
+
+      <article class="feature-chapter" aria-labelledby="feature-balances-title">
+        <div class="feature-copy">
+          <span class="feature-number" aria-hidden="true">03</span>
+          <p class="feature-kicker">Stay clear</p>
+          <h3 id="feature-balances-title">Know who owes whom.</h3>
+          <p>See each person’s balance and what is still owed. When money changes hands, record the settlement to keep the group up to date.</p>
+        </div>
+        <div class="feature-visual feature-visual--balance">
+          <Image src={balanceScreen} alt="ShareOrb group balance screen showing who gets money back, who owes, and the settlement between members" width={326} widths={screenshotWidths} sizes={screenshotSizes} format="webp" quality={100} loading="lazy" decoding="async" class="feature-screen" />
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    position: relative;
+    z-index: 1;
+    /* Start fully transparent over the shared wash, then ease into the canvas.
+       These alpha stops use the canvas RGB (#f7f6fb), avoiding a new color at the join. */
+    background: linear-gradient(to bottom,
+      rgb(247 246 251 / 0),
+      rgb(247 246 251 / .04) 54px,
+      rgb(247 246 251 / .2) 128px,
+      rgb(247 246 251 / .55) 214px,
+      rgb(247 246 251 / .9) 288px,
+      var(--color-canvas) 320px);
+    color: var(--color-ink);
+    padding-block: 40px 96px;
+  }
+
+  .features-intro {
+    max-width: 760px;
+    margin-bottom: 32px;
+    color: var(--color-ink);
+  }
+
+  .features-eyebrow {
+    color: var(--color-brand-primary);
+  }
+
+  .feature-kicker {
+    color: var(--color-brand-primary);
+  }
+
+  .features-eyebrow,
+  .feature-kicker {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .features-intro h2 {
+    max-width: 15ch;
+    margin-top: 16px;
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 700;
+    letter-spacing: -.025em;
+    line-height: 1.14;
+  }
+
+  .features-intro > p:last-child {
+    max-width: 55ch;
+    margin-top: 16px;
+    color: var(--color-ink-muted);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+
+  .feature-chapter {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(40px, 7vw, 104px);
+    min-height: 570px;
+    padding-block: 48px;
+    border-bottom: 1px solid var(--color-brand-lavender-border);
+  }
+
+  .feature-chapter:first-child { padding-top: 24px; }
+
+  .feature-chapter--reverse .feature-copy { order: 2; }
+  .feature-chapter--reverse .feature-visual { order: 1; }
+
+  .feature-copy {
+    max-width: 470px;
+  }
+
+  .feature-number {
+    display: block;
+    margin-bottom: 32px;
+    color: var(--color-brand-tint);
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -.06em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .feature-copy h3 {
+    max-width: 13ch;
+    margin-top: 12px;
+    font-size: clamp(30px, 3vw, 42px);
+    font-weight: 700;
+    letter-spacing: -.025em;
+    line-height: 1.16;
+  }
+
+  .feature-copy > p:last-child {
+    max-width: 45ch;
+    margin-top: 20px;
+    color: var(--color-ink-muted);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .feature-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 520px;
+    overflow: hidden;
+    border-radius: 24px;
+    background: var(--color-brand-lavender);
+  }
+
+  .feature-visual--expense { background: var(--color-surface); }
+  .feature-visual--balance { background: var(--color-brand-lavender); }
+
+  .feature-screen {
+    display: block;
+    width: min(68%, 326px);
+    height: auto;
+    flex: none;
+    align-self: flex-start;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 12px 32px rgba(26, 22, 64, .12), 0 4px 8px rgba(26, 22, 64, .06);
+    margin-top: 40px;
+  }
+
+  @media (max-width: 767px) {
+    .features { padding-block: 32px 80px; }
+    .features-intro { margin-bottom: 24px; }
+    .feature-chapter {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      min-height: 0;
+      padding-block: 48px;
+    }
+    .feature-chapter--reverse .feature-copy,
+    .feature-chapter--reverse .feature-visual { order: initial; }
+    .feature-number { margin-bottom: 32px; font-size: 36px; }
+    .feature-visual { min-height: 370px; }
+    .feature-screen { width: min(64%, 260px); margin-top: 32px; }
+  }
+
+  @media (max-width: 479px) {
+    .feature-visual { min-height: 340px; }
+    .feature-screen { width: min(65%, 220px); }
+  }
+</style>
